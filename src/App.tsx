@@ -17,7 +17,7 @@ function App() {
   } = useCountdown();
 
   const [showGuide, setShowGuide] = useState(!hasConfig);
-  const [isEditing, setIsEditing] = useState(false);
+  // const [isEditing, setIsEditing] = useState(false);
 
   const handleGuideComplete = (newConfig: Partial<UserConfig>) => {
     if (newConfig.targetDate) {
