@@ -1,0 +1,155 @@
+:root {
+  /* 温暖色调配色 */
+  --color-cream: #FFF8F0;
+  --color-warm-white: #FFFCF8;
+  --color-paper: #FEF9F3;
+  --color-latte: #F5EDE4;
+
+  /* 主题色 */
+  --color-primary: #E8B4A3;
+  --color-primary-light: #F0C9BC;
+  --color-secondary: #D4A574;
+  --color-accent: #C49A6C;
+
+  /* 文字颜色 */
+  --color-text-primary: #4A4039;
+  --color-text-secondary: #7A6F65;
+  --color-text-muted: #A99E93;
+
+  /* 手绘风格阴影 */
+  --shadow-soft: 2px 3px 8px rgba(139, 119, 101, 0.15);
+  --shadow-medium: 3px 4px 12px rgba(139, 119, 101, 0.2);
+  --shadow-hard: 4px 6px 16px rgba(139, 119, 101, 0.25);
+
+  /* 边框 */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  /* 间距 */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 48px;
+
+  /* 字体 */
+  --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-family-handwritten: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive;
+
+  /* 动画 */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+/* 全局样式重置 */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  background-color: var(--color-paper);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* 手绘风格背景 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 31px,
+      rgba(212, 165, 116, 0.1) 31px,
+      rgba(212, 165, 116, 0.1) 32px
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-latte);
+  border-radius: var(--border-radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: var(--border-radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* 选择文字样式 */
+::selection {
+  background: var(--color-primary-light);
+  color: var(--color-text-primary);
+}
+
+/* 禁用状态 */
+:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 按钮基础样式 */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--transition-normal);
+}
+
+/* 输入框基础样式 */
+input, textarea {
+  font-family: inherit;
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+/* 图片基础样式 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 链接基础样式 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 列表基础样式 */
+ul, ol {
+  list-style: none;
+}

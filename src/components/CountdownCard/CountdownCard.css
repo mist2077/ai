@@ -1,0 +1,226 @@
+.countdown-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 253, 250, 0.9) 100%);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow:
+    0 4px 20px rgba(139, 119, 101, 0.1),
+    0 1px 3px rgba(139, 119, 101, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.countdown-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  opacity: 0.6;
+}
+
+.countdown-card.expired {
+  background: linear-gradient(135deg, rgba(255, 248, 240, 0.98) 0%, rgba(255, 245, 238, 0.95) 100%);
+}
+
+/* 头部 */
+.countdown-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.countdown-icon {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-sm);
+  filter: drop-shadow(0 2px 4px rgba(139, 119, 101, 0.2));
+}
+
+.countdown-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 倒计时主显示 */
+.countdown-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.countdown-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.days-number {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 4px rgba(139, 119, 101, 0.15));
+}
+
+.days-label {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+}
+
+/* 倒计时详情 */
+.countdown-details {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 253, 250, 0.6) 100%);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 48px;
+}
+
+.time-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.time-label {
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-separator {
+  font-size: 1.25rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  opacity: 0.5;
+  margin-top: -8px;
+}
+
+/* 底部 */
+.countdown-footer {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px dashed rgba(212, 165, 116, 0.3);
+  display: flex;
+  justify-content: center;
+}
+
+.pulse-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+.pulse-text {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* 过期状态 */
+.expired-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.expired-icon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.expired-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.expired-message {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+/* 响应式 */
+@media (max-width: 480px) {
+  .countdown-card {
+    padding: var(--spacing-lg);
+  }
+
+  .days-number {
+    font-size: 3.5rem;
+  }
+
+  .time-value {
+    font-size: 1.25rem;
+  }
+
+  .time-unit {
+    min-width: 40px;
+  }
+
+  .countdown-details {
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .days-number {
+    font-size: 4rem;
+  }
+}

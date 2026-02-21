@@ -1,0 +1,244 @@
+/* 便签纸组件样式 */
+.sticky-note {
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF3D4 100%);
+  border-radius: 2px 16px 2px 16px;
+  padding: var(--spacing-md);
+  box-shadow:
+    1px 2px 4px rgba(139, 119, 101, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  transform: rotate(-1deg);
+  transition: all var(--transition-normal);
+}
+
+.sticky-note:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow:
+    2px 4px 8px rgba(139, 119, 101, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* 胶带贴纸效果 */
+.sticky-note::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0 20px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+}
+
+/* 拍立得照片组件 */
+.polaroid {
+  background: white;
+  padding: var(--spacing-sm);
+  padding-bottom: var(--spacing-xl);
+  border-radius: var(--border-radius-sm);
+  box-shadow:
+    2px 3px 8px rgba(139, 119, 101, 0.15),
+    0 1px 3px rgba(139, 119, 101, 0.1);
+  transform: rotate(2deg);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  position: relative;
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow:
+    4px 6px 12px rgba(139, 119, 101, 0.2),
+    0 2px 4px rgba(139, 119, 101, 0.15);
+}
+
+.polaroid-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--color-latte) 0%, var(--color-cream) 100%);
+  border-radius: var(--border-radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  overflow: hidden;
+}
+
+.polaroid-caption {
+  margin-top: var(--spacing-sm);
+  text-align: center;
+  font-family: var(--font-family-handwritten);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+/* 手账本样式 */
+.diary-cover {
+  background: linear-gradient(135deg, #F5E6D3 0%, #EDE0D0 50%, #E8D9C5 100%);
+  border-radius: var(--border-radius-lg);
+  box-shadow:
+    0 4px 20px rgba(139, 119, 101, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  padding: var(--spacing-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.diary-cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(139, 119, 101, 0.05) 30%,
+    rgba(139, 119, 101, 0.1) 50%,
+    rgba(139, 119, 101, 0.05) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* 倒计时卡片 */
+.countdown-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow:
+    0 4px 16px rgba(139, 119, 101, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.countdown-number {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(135deg, var(--color-text-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.countdown-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+}
+
+.countdown-separator {
+  font-size: 2rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  align-self: flex-start;
+  margin-top: var(--spacing-md);
+}
+
+/* 按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(232, 180, 163, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(232, 180, 163, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(212, 165, 116, 0.5);
+}
+
+/* 输入框样式 */
+.input {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  border-radius: var(--border-radius-md);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  transition: all var(--transition-normal);
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 3px rgba(232, 180, 163, 0.2);
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* 响应式布局 */
+@media (max-width: 640px) {
+  .countdown-number {
+    font-size: 2.5rem;
+  }
+
+  .diary-cover {
+    padding: var(--spacing-lg);
+  }
+
+  .polaroid {
+    transform: rotate(1deg);
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .countdown-number {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .countdown-number {
+    font-size: 4rem;
+  }
+}

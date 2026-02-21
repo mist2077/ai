@@ -1,0 +1,262 @@
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import type { UserConfig } from '../../types';
+import './GuidePage.css';
+
+interface GuidePageProps {
+  onComplete: (config: Partial<UserConfig>) => void;
+}
+
+const presetThemes = [
+  { id: 'graduation', name: '毕业季', emoji: '🎓', color: '#E8B4A3' },
+  { id: 'summer', name: '暑假', emoji: '☀️', color: '#F0C9BC' },
+  { id: 'winter', name: '寒假', emoji: '❄️', color: '#D4E5F7' },
+  { id: 'custom', name: '自定义', emoji: '✨', color: '#E8D4A3' },
+];
+
+export const GuidePage: React.FC<GuidePageProps> = ({ onComplete }) => {
+  const [step, setStep] = useState(1);
+  const [title, setTitle] = useState('');
+  const [selectedTheme, setSelectedTheme] = useState('graduation');
+  const [targetDate, setTargetDate] = useState('');
+  const [mood, setMood] = useState('');
+
+  const handleNext = () => {
+    if (step < 4) {
+      setStep(step + 1);
+    } else {
+      onComplete({
+        title: title || '我的倒计时',
+        theme: selectedTheme as UserConfig['theme'],
+        targetDate,
+        mood,
+      });
+    }
+  };
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
+  const canProceed = () => {
+    switch (step) {
+      case 1:
+        return title.trim().length > 0;
+      case 2:
+        return true;
+      case 3:
+        return targetDate !== '';
+      case 4:
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  return (
+    <motion.div
+      className="guide-page"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="guide-container">
+        {/* 进度条 */}
+        <div className="guide-progress">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className={`progress-dot ${i <= step ? 'active' : ''}`}
+            />
+          ))}
+        </div>
+
+        {/* 步骤内容 */}
+        <div className="guide-content">
+          {step === 1 && (
+            <motion.div
+              key="step1"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="step-content"
+            >
+              <h2>✨ 给你的倒计时起个名字</h2>
+              <p className="step-description">
+                这将是你的专属倒计时，记录每一个珍贵的时刻
+              </p>
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="guide-input"
+                  placeholder="例如：我的毕业季 🎓"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  maxLength={20}
+                />
+                <span className="char-count">{title.length}/20</span>
+              </div>
+              <div className="quick-suggestions">
+                <span>快速选择：</span>
+                {['我的毕业季 🎓', '暑假倒计时 ☀️', '寒假来了 ❄️', '考研冲刺 📚'].map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    className="suggestion-chip"
+                    onClick={() => setTitle(suggestion)}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {step === 2 && (
+            <motion.div
+              key="step2"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="step-content"
+            >
+              <h2>🎨 选择一个主题</h2>
+              <p className="step-description">
+                不同的主题会给你的倒计时带来不同的氛围
+              </p>
+              <div className="theme-grid">
+                {presetThemes.map((theme) => (
+                  <div
+                    key={theme.id}
+                    className={`theme-card ${selectedTheme === theme.id ? 'selected' : ''}`}
+                    onClick={() => setSelectedTheme(theme.id)}
+                    style={{ '--theme-color': theme.color } as React.CSSProperties}
+                  >
+                    <div className="theme-emoji">{theme.emoji}</div>
+                    <div className="theme-name">{theme.name}</div>
+                    {selectedTheme === theme.id && (
+                      <motion.div
+                        className="selected-indicator"
+                        layoutId="selectedTheme"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                      >
+                        ✓
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {step === 3 && (
+            <motion.div
+              key="step3"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="step-content"
+            >
+              <h2>📅 选择目标日期</h2>
+              <p className="step-description">
+                设置你期待的那一天，我们会帮你记录每一个倒数时刻
+              </p>
+              <div className="date-picker-container">
+                <input
+                  type="datetime-local"
+                  className="date-picker"
+                  value={targetDate}
+                  onChange={(e) => setTargetDate(e.target.value)}
+                  min={new Date().toISOString().slice(0, 16)}
+                />
+                <div className="date-preview">
+                  {targetDate && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="preview-content"
+                    >
+                      <span className="preview-label">距离</span>
+                      <span className="preview-date">
+                        {new Date(targetDate).toLocaleDateString('zh-CN', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          weekday: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                      <span className="preview-days">
+                        还有 {Math.ceil((new Date(targetDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24))} 天
+                      </span>
+                    </motion.div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {step === 4 && (
+            <motion.div
+              key="step4"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              className="step-content"
+            >
+              <h2>📝 记录此刻的心情</h2>
+              <p className="step-description">
+                写下你现在的感受，这将是未来美好的回忆
+              </p>
+              <div className="mood-input-container">
+                <textarea
+                  className="mood-textarea"
+                  placeholder="例如：期待又舍不得..."
+                  value={mood}
+                  onChange={(e) => setMood(e.target.value)}
+                  maxLength={100}
+                  rows={4}
+                />
+                <span className="char-count">{mood.length}/100</span>
+              </div>
+              <div className="mood-suggestions">
+                <span>快速选择：</span>
+                {['期待 🎉', '舍不得 💕', '紧张 😰', '开心 😊', '平静 😌'].map((m) => (
+                  <button
+                    key={m}
+                    className="mood-chip"
+                    onClick={() => setMood(m)}
+                  >
+                    {m}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </div>
+
+        {/* 导航按钮 */}
+        <div className="guide-navigation">
+          {step > 1 && (
+            <button className="btn btn-secondary" onClick={handleBack}>
+              ← 上一步
+            </button>
+          )}
+          <button
+            className="btn btn-primary"
+            onClick={handleNext}
+            disabled={!canProceed()}
+          >
+            {step === 4 ? '完成设置 ✨' : '下一步 →'}
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default GuidePage;
