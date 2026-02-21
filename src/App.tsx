@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import type { UserConfig } from './types';
+import { useCountdown } from './hooks/useCountdown';
+import { GuidePage } from './components/GuidePage/GuidePage';
+import { DiaryHome } from './components/DiaryHome/DiaryHome';
+import './styles/variables.css';
+import './styles/global.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const {
+    config,
+    countdown,
+    hasConfig,
+    setTargetDate,
+    clearConfig,
+  } = useCountdown();
+
+  const [showGuide, setShowGuide] = useState(!hasConfig);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleGuideComplete = (newConfig: Partial<UserConfig>) => {
+    if (newConfig.targetDate) {
+      setTargetDate(
+        newConfig.targetDate,
+        newConfig.title,
+        newConfig.theme
+      );
+      setShowGuide(false);
+      setIsEditing(false);
+    }
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setShowGuide(true);
+  };
+
+  const handleReset = () => {
+    if (confirm('确定要重置所有设置吗？这将清除你的倒计时配置。')) {
+      clearConfig();
+      setShowGuide(true);
+      setIsEditing(false);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <AnimatePresence mode="wait">
+        {showGuide ? (
+          <GuidePage
+            key="guide"
+            onComplete={handleGuideComplete}
+          />
+        ) : config ? (
+          <DiaryHome
+            key="home"
+            config={config}
+            countdown={countdown}
+            onEdit={handleEdit}
+            onReset={handleReset}
+          />
+        ) : null}
+      </AnimatePresence>
+    </div>
+  );
 }
 
-export default App
+export default App;
