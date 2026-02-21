@@ -17,7 +17,6 @@ function App() {
   } = useCountdown();
 
   const [showGuide, setShowGuide] = useState(!hasConfig);
-  // const [isEditing, setIsEditing] = useState(false);
 
   const handleGuideComplete = (newConfig: Partial<UserConfig>) => {
     if (newConfig.targetDate) {
@@ -27,12 +26,10 @@ function App() {
         newConfig.theme
       );
       setShowGuide(false);
-      setIsEditing(false);
     }
   };
 
   const handleEdit = () => {
-    setIsEditing(true);
     setShowGuide(true);
   };
 
@@ -40,7 +37,6 @@ function App() {
     if (confirm('确定要重置所有设置吗？这将清除你的倒计时配置。')) {
       clearConfig();
       setShowGuide(true);
-      setIsEditing(false);
     }
   };
 
